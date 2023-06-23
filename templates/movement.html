@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Inventory Management</title>
+{% endblock %}
+
+{% block body %}
+<div style="margin: 1rem;">
+    <div class="container-fluid" style="margin-bottom: 1rem;">Product Movement</div>
+    <div class="form" style="margin-bottom: 1rem;">
+        <form action="/movement" method="post">
+            <div class="row g-3 align-items-center">
+                <div class="col-6 col-md-4">
+                    <input type="text" name="movement_id" id="movement_id" class="form-control" placeholder="Movement ID" required>
+                </div>
+                <div class="col-6 col-md-4">
+                    <select class="form-select" id="product_id" name="product_id" required>
+                        <option value="" selected>-- Select Product Id --</option>
+                        {% for product in products %}
+                            <option value="{{product.product_id}}">{{product.product_id}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-6 col-md-4">
+                    <select class="form-select" id="from_location" name="from_location">
+                        <option value="" selected>-- Select From Location --</option>
+                        {% for location in locations%}
+                            <option value="{{location.location_id}}">{{location.location_id}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-6 col-md-4">
+                    <select class="form-select" id="to_location" name="to_location">
+                        <option value="" selected>-- Select To Location --</option>
+                        {% for location in locations%}
+                            <option value="{{location.location_id}}">{{location.location_id}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-6 col-md-4">
+                    <input type="text" name="qty" id="qty" class="form-control" placeholder="Quantity" required>
+                </div>
+                <div class="col-6 col-md-4">
+                    <input type="submit" value="Move Product" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col" style="border: 1px solid; border-radius: 10px; padding: 10px;">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Movement ID</th>
+                <th scope="col">Product ID</th>
+                <th scope="col">Timestamp</th>
+                <th scope="col">From Location</th>
+                <th scope="col">To Location</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for movement in movements %}
+                <tr>
+                    <th scope="row">{{(loop.index0 + 1)}}</th>
+                    <td>{{movement.movement_id}}</td>
+                    <td>{{movement.product_rel.product_id if movement.product_rel else '-'}}</td>
+                    <td>{{movement.timestamp}}</td>
+                    <td>{{movement.from_location_rel.location_id if movement.from_location_rel else '-'}}</td>
+                    <td>{{movement.to_location_rel.location_id if movement.to_location_rel else '-'}}</td>
+                    <td>{{movement.qty}}</td>
+                    <td style="gap: 10px;">
+                        <a class="btn btn-warning" href="/movement/update/{{movement.movement_id}}">Edit</a>&nbsp;
+                        <a class="btn btn-danger" href="/movement/delete/{{movement.movement_id}}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

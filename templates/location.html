@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Inventory Management</title>
+{% endblock %}
+
+{% block body %}
+<div style="margin: 1rem;">
+    <div class="container-fluid" style="margin-bottom: 1rem;">Location/s</div>
+    <div class="form" style="margin-bottom: 1rem;">
+        <form action="/location" method="post">
+            <div class="row g-3 align-items-center">
+                <div class="col-4">
+                    <input type="text" name="location_id" id="location_id" class="form-control" required>
+                </div>
+                <div class="col-2">
+                    <input type="submit" value="Add Location" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-6" style="border: 1px solid; border-radius: 10px; padding: 10px;">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Location ID</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for location in locations %}
+                <tr>
+                    <th scope="row">{{(loop.index0 + 1)}}</th>
+                    <td>{{location.location_id}}</td>
+                    <td>
+                        <a class="btn btn-warning" href="/location/update/{{location.location_id}}">Edit</a>&nbsp;
+                        <a class="btn btn-danger" href="/location/delete/{{location.location_id}}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

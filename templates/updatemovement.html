@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Inventory Management</title>
+{% endblock %}
+
+{% block body %}
+<div style="margin: 1rem;">
+    <div class="container-fluid" style="margin-bottom: 1rem;">Product Movement</div>
+    <div class="form" style="margin-bottom: 1rem;">
+        <form action="/movement/update/{{movement.movement_id}}" method="post">
+            <!-- {{movement}} -->
+            <div class="row g-3 align-items-center">
+                <div class="col-6 col-md-4">
+                    <input type="text" name="movement_id" id="movement_id" class="form-control" placeholder="Movement ID" value="{{movement.movement_id}}" readonly>
+                </div>
+                <div class="col-6 col-md-4">
+                    <select class="form-select" id="product_id" name="product_id" required>
+                        {% for product in products %}
+                            <option value="{{product.product_id}}" 
+                            {% if product.product_id == movement.product_id %} selected {% endif %}>
+                                {{product.product_id}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-6 col-md-4">
+                    <select class="form-select" id="from_location" name="from_location">
+                        <option value="" {% if not movement.from_location %} selected {% endif %}>-</option>
+                        {% for location in locations %}
+                            <option value="{{location.location_id}}" 
+                            {% if movement.from_location == location.location_id %} selected {% endif %}>
+                                {{location.location_id}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-6 col-md-4">
+                    <select class="form-select" id="to_location" name="to_location">
+                        <option value="" {% if not movement.to_location %} selected {% endif %}>-</option>
+                        {% for location in locations%}
+                            <option value="{{location.location_id}}" 
+                            {% if movement.to_location == location.location_id %} selected {% endif %}>
+                                {{location.location_id}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-6 col-md-4">
+                    <input type="text" name="qty" id="qty" class="form-control" placeholder="Quantity" value="{{movement.qty}}" required>
+                </div>
+                <div class="col-6 col-md-4">
+                    <button type="submit" class="btn btn-primary">Update Product Movement</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+<!-- 
+
+    <div class="row g-3 align-items-center">
+                <div class="col-2">
+                    <input type="text" name="movement_id" id="movement_id" class="form-control" placeholder="Movement ID" value="{{movement.movement_id}}" readonly>
+                </div>
+                <div class="col-2">
+                    <input class="form-control" list="{{products}}" value="{{movement.product_id}}"
+                        id="product_id" name="product_id" placeholder="Product ID" required>
+                    <datalist id="{{products}}">
+                        {% for product in products %}
+                            <option value="{{product.product_id}}">
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="col-2">
+                    <input class="form-control" list="{{locations}}" value="{{movement.from_location}}"
+                        id="from_location" name="from_location" placeholder="From Location">
+                    <datalist id="{{locations}}">
+                        {% for location in locations %}
+                            <option value="{{location.location_id}}">
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="col-2">
+                    <input class="form-control" list="{{locations}}" value="{{movement.to_location}}"
+                        id="to_location" name="to_location" placeholder="To Location">
+                    <datalist id="{{locations}}">
+                        {% for location in locations %}
+                            <option value="{{location.location_id}}">
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="col-2">
+                    <input type="text" name="qty" id="qty" class="form-control" placeholder="Quantity" value="{{movement.qty}}" required>
+                </div>
+                <div class="col-2">
+                    <input type="submit" value="Update Product Movement" class="btn btn-primary">
+                </div>
+            </div>
+
+ -->

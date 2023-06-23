@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Inventory Management</title>
+{% endblock %}
+
+{% block body %}
+<div style="margin: 1rem;">
+    <div class="row justify-content-center" style="gap: 1rem; padding-top: 1rem; align-items: self-start;">
+        <div class="col-lg-6 col-md-12">
+            <div class="container-fluid" style="margin-bottom: 1rem;">Total Balance Report</div>
+            <div style="border: 1px solid; border-radius: 10px; padding: 10px;">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Warehouse Location</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in report_data %}
+                        <tr>
+                            <th scope="row">{{(loop.index0 + 1)}}</th>
+                            <td>{{item.location}}</td>
+                            <td>{{item.product_id}}</td>
+                            <td>{{item.qty}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="container-fluid" style="margin-bottom: 1rem;">Balance Report (Location wise)</div>
+            <div style="border: 1px solid; border-radius: 10px; padding: 10px;">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Warehouse Location</th>
+                        <th scope="col">Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in total_balance_data %}
+                            <tr>
+                                {% if item.location == 'Total' %}
+                                    <th scope="row">{{ loop.index }}</th>
+                                    <th scope="row">{{ item.location }}</th>
+                                    <th scope="row">{{ item.qty }}</th>
+                                {% else %}
+                                    <th scope="row">{{ loop.index }}</th>
+                                    <td>{{ item.location }}</td>
+                                    <td>{{ item.qty }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
