@@ -5,7 +5,7 @@ Inventory Management System made using Python (Flask), uses SQLite DB, Jinja2 Te
 ## Screenshots
 
 ### Home Page
-![Home Page](https://github.com/divyam-mistry/flask-hello-world/assets/73271406/561e04a4-8de2-402c-810b-e80e340e2b4d)
+![image](https://github.com/divyam-mistry/flask-hello-world/assets/73271406/0f20592f-870f-47b8-a124-416cf91e2a43)
 
 ### Product Page
 ![Product Page](https://github.com/divyam-mistry/flask-hello-world/assets/73271406/e812f15e-e055-4ec6-9464-e4c1e396b7b2)
